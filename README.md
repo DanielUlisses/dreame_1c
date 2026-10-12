@@ -63,6 +63,25 @@ report them locally, and it accepts any id without checking it, so you map them 
 Each room gets a **Clean <room>** button (**Limpar <room>** in Portuguese). Removing a room
 removes its button. Ids usually follow the order the app segmented the map, starting at 1.
 
+### Rooms as Home Assistant areas (`vacuum.clean_area`)
+
+The configured rooms are also the vacuum's **segments** (HA 2026.3+ `CLEAN_AREA`). Map them
+to your HA areas once in **Settings → Devices → Rose → vacuum → Configure**, then
+`vacuum.clean_area` cleans by area:
+
+```yaml
+action: vacuum.clean_area
+target:
+  entity_id: vacuum.rose
+data:
+  cleaning_area_id: [cozinha, sala_de_jantar]
+```
+
+[Home Assistant Matter Hub](https://github.com/RiDDiX/home-assistant-matter-hub) picks this
+mapping up automatically: Google Home, SmartThings and Alexa get one cleaning mode per room,
+Apple Home a room picker. If you change the rooms option later, HA raises a repair asking to
+re-map them.
+
 Virtual walls, no-go and no-mop zones live on the robot's map, so the robot respects them no
 matter how the clean was started.
 
@@ -83,7 +102,7 @@ data:
 
 | Platform | Entities |
 |---|---|
-| `vacuum` | start (full clean; also resumes), pause, stop, return to dock, locate, suction |
+| `vacuum` | start (full clean; also resumes), pause, stop, return to dock, locate, suction, clean by HA area |
 | `binary_sensor` | water tank fitted |
 | `sensor` | status (incl. `mopping`), warning, fault code, battery, area and time of the current run, total time / count / area, filter / main brush / side brush life (%) and hours left, work mode (disabled by default) |
 | `select` | mop water level |

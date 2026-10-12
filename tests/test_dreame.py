@@ -236,3 +236,28 @@ async def test_cleaning_rooms_attribute(hass: HomeAssistant, fake_device):
         assert hass.states.get("vacuum.dreame_1c").attributes["cleaning_rooms"] is None
     finally:
         STATE[(18, 1)] = 6
+
+
+async def test_clean_area_segments(hass: HomeAssistant, fake_device):
+    await _setup(hass)
+    registry = er.async_get(hass)
+    entity = hass.data["entity_components"]["vacuum"].get_entity("vacuum.dreame_1c")
+    assert [(s.id, s.name) for s in await entity.async_get_segments()] == [("1", "Suite"), ("2", "Escritorio")]
+
+    # The user maps segments to HA areas in the vacuum's settings.
+    registry.async_update_entity_options(
+        "vacuum.dreame_1c", "vacuum",
+        {"area_mapping": {"suite_area": ["1"], "office_area": ["2"]},
+         "last_seen_segments": [{"id": "1", "name": "Suite", "group": None},
+                                {"id": "2", "name": "Escritorio", "group": None}]},
+    )
+    fake_device.sent.clear()
+    await hass.services.async_call(
+        "vacuum", "clean_area",
+        {"entity_id": "vacuum.dreame_1c", "cleaning_area_id": ["office_area", "suite_area"]},
+        blocking=True,
+    )
+    (method, params), = fake_device.sent
+    assert method == "action" and (params["siid"], params["aiid"]) == (18, 1)
+    selects = json.loads(params["in"][1]["value"])["selects"]
+    assert [s[0] for s in selects] == [2, 1]

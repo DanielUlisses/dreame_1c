@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any
 
 from homeassistant.components.vacuum import (
+    Segment,
     StateVacuumEntity,
     VacuumActivity,
     VacuumEntityFeature,
@@ -61,6 +62,7 @@ class Dreame1CVacuum(Dreame1CEntity, StateVacuumEntity):
         | VacuumEntityFeature.RETURN_HOME
         | VacuumEntityFeature.LOCATE
         | VacuumEntityFeature.FAN_SPEED
+        | VacuumEntityFeature.CLEAN_AREA
     )
 
     def __init__(self, coordinator: Dreame1CCoordinator) -> None:
@@ -98,6 +100,21 @@ class Dreame1CVacuum(Dreame1CEntity, StateVacuumEntity):
         if self.activity == VacuumActivity.DOCKED:
             return "docked"
         return status
+
+    async def async_added_to_hass(self) -> None:
+        await super().async_added_to_hass()
+        # Rooms changed since the user mapped them to HA areas: ask for a re-mapping.
+        last_seen = self.last_seen_segments
+        if last_seen is not None and last_seen != await self.async_get_segments():
+            self.async_create_segments_issue()
+
+    async def async_get_segments(self) -> list[Segment]:
+        """The configured rooms, for mapping to HA areas (vacuum.clean_area)."""
+        return [Segment(id=str(rid), name=name) for rid, name in self.coordinator.rooms.items()]
+
+    async def async_clean_segments(self, segment_ids: list[str], **kwargs: Any) -> None:
+        """vacuum.clean_area: the areas' rooms in one room clean."""
+        await self.coordinator.async_clean_rooms([int(segment) for segment in segment_ids])
 
     async def async_start(self) -> None:
         # start-sweep: full clean, or resume when paused
