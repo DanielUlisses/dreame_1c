@@ -228,7 +228,7 @@
       "message": "The robot rejected or did not answer the command: {error}"
     },
     "unknown_room": {
-      "message": "Unknown room '{room}'. Configured rooms: {rooms}."
+      "message": "Unknown room: {room}. Configured rooms: {rooms}."
     }
   }
 }
