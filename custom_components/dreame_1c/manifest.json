@@ -1,0 +1,20 @@
+{
+  "domain": "dreame_1c",
+  "name": "Dreame 1C (local)",
+  "codeowners": [
+    "@DanielUlisses"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/DanielUlisses/dreame_1c",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/DanielUlisses/dreame_1c/issues",
+  "loggers": [
+    "miio"
+  ],
+  "requirements": [
+    "python-miio==0.5.12"
+  ],
+  "version": "0.2.0"
+}

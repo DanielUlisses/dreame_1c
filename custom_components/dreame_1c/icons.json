@@ -1,0 +1,84 @@
+{
+  "entity": {
+    "binary_sensor": {
+      "water_tank": {
+        "default": "mdi:water-off",
+        "state": {
+          "on": "mdi:water"
+        }
+      }
+    },
+    "button": {
+      "clean_room": {
+        "default": "mdi:floor-plan"
+      },
+      "reset_filter": {
+        "default": "mdi:air-filter"
+      },
+      "reset_main_brush": {
+        "default": "mdi:brush"
+      },
+      "reset_side_brush": {
+        "default": "mdi:brush"
+      }
+    },
+    "select": {
+      "water_level": {
+        "default": "mdi:water"
+      }
+    },
+    "sensor": {
+      "status": {
+        "default": "mdi:robot-vacuum",
+        "state": {
+          "mopping": "mdi:water"
+        }
+      },
+      "warn_code": {
+        "default": "mdi:alert-circle-outline"
+      },
+      "fault": {
+        "default": "mdi:alert-outline"
+      },
+      "work_mode": {
+        "default": "mdi:cog-outline"
+      },
+      "total_clean_count": {
+        "default": "mdi:counter"
+      },
+      "filter_life": {
+        "default": "mdi:air-filter"
+      },
+      "filter_hours": {
+        "default": "mdi:air-filter"
+      },
+      "main_brush_life": {
+        "default": "mdi:brush"
+      },
+      "main_brush_hours": {
+        "default": "mdi:brush"
+      },
+      "side_brush_life": {
+        "default": "mdi:brush"
+      },
+      "side_brush_hours": {
+        "default": "mdi:brush"
+      }
+    },
+    "switch": {
+      "dnd": {
+        "default": "mdi:minus-circle-outline"
+      }
+    },
+    "number": {
+      "volume": {
+        "default": "mdi:volume-high"
+      }
+    }
+  },
+  "services": {
+    "clean_rooms": {
+      "service": "mdi:floor-plan"
+    }
+  }
+}

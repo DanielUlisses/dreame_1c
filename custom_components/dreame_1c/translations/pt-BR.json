@@ -1,0 +1,234 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Dreame 1C (local)",
+        "description": "Conecta ao robô pela rede local (miio). Fixe o IP dele com uma reserva de DHCP.",
+        "data": {
+          "host": "Host",
+          "token": "Token"
+        },
+        "data_description": {
+          "host": "Endereço IP do robô.",
+          "token": "Token miio de 32 caracteres hexadecimais (muda sempre que o robô é pareado de novo no app Xiaomi)."
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigurar Dreame 1C",
+        "description": "Atualize o IP ou o token do robô (ex.: depois de parear de novo).",
+        "data": {
+          "host": "Host",
+          "token": "Token"
+        },
+        "data_description": {
+          "host": "Endereço IP do robô.",
+          "token": "Token miio de 32 caracteres hexadecimais (muda sempre que o robô é pareado de novo no app Xiaomi)."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Não foi possível falar com o robô. Confira o IP, o token e se ele está na mesma rede.",
+      "invalid_token": "O token deve ter 32 caracteres hexadecimais."
+    },
+    "abort": {
+      "already_configured": "Este robô já está configurado.",
+      "reconfigure_successful": "Reconfiguração concluída.",
+      "wrong_device": "Este é um robô diferente do configurado. Verifique o IP e o token."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opções do Dreame 1C",
+        "data": {
+          "rooms": "Cômodos",
+          "scan_interval": "Intervalo de atualização"
+        },
+        "data_description": {
+          "rooms": "Ids dos cômodos do app Xiaomi, no formato `id=Nome` separados por vírgula ou quebra de linha, ex.: `1=Suite, 2=Escritorio`. Um botão de limpeza é criado por cômodo.",
+          "scan_interval": "De quanto em quanto tempo o robô é consultado, em segundos."
+        }
+      }
+    },
+    "error": {
+      "invalid_rooms": "Formato inválido. Use `1=Suite, 2=Escritorio`."
+    }
+  },
+  "selector": {
+    "fan_speed": {
+      "options": {
+        "quiet": "Silencioso",
+        "standard": "Padrão",
+        "medium": "Médio",
+        "turbo": "Turbo"
+      }
+    },
+    "water_level": {
+      "options": {
+        "low": "Baixo",
+        "medium": "Médio",
+        "high": "Alto"
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "water_tank": {
+        "name": "Reservatório de água"
+      }
+    },
+    "button": {
+      "clean_room": {
+        "name": "Limpar {room}"
+      },
+      "reset_filter": {
+        "name": "Zerar filtro"
+      },
+      "reset_main_brush": {
+        "name": "Zerar escova principal"
+      },
+      "reset_side_brush": {
+        "name": "Zerar escova lateral"
+      }
+    },
+    "number": {
+      "volume": {
+        "name": "Volume"
+      }
+    },
+    "select": {
+      "water_level": {
+        "name": "Nível de água do mop",
+        "state": {
+          "low": "Baixo",
+          "medium": "Médio",
+          "high": "Alto"
+        }
+      }
+    },
+    "switch": {
+      "dnd": {
+        "name": "Não perturbe"
+      }
+    },
+    "sensor": {
+      "status": {
+        "name": "Status",
+        "state": {
+          "cleaning": "Limpando",
+          "idle": "Parado",
+          "paused": "Pausado",
+          "error": "Erro",
+          "returning": "Voltando para a base",
+          "charging": "Carregando",
+          "mopping": "Passando pano"
+        }
+      },
+      "warn_code": {
+        "name": "Alerta",
+        "state": {
+          "normal": "Normal",
+          "drop": "Roda suspensa",
+          "cliff": "Sensor de degrau",
+          "bumper": "Para-choque preso",
+          "gesture": "Robô inclinado",
+          "bumper_repeat": "Para-choque preso (repetido)",
+          "drop_repeat": "Roda suspensa (repetido)",
+          "optical_flow": "Sensor de fluxo óptico",
+          "no_box": "Sem reservatório de pó",
+          "no_tankbox": "Sem tanque de água",
+          "waterbox_empty": "Tanque de água vazio",
+          "box_full": "Reservatório de pó cheio",
+          "brush": "Escova principal enroscada",
+          "side_brush": "Escova lateral enroscada",
+          "fan": "Erro no ventilador",
+          "left_wheel_motor": "Motor da roda esquerda",
+          "right_wheel_motor": "Motor da roda direita",
+          "turn_suffocate": "Preso ao girar",
+          "forward_suffocate": "Preso ao avançar",
+          "charger_get": "Não encontra a base",
+          "battery_low": "Bateria fraca",
+          "charge_fault": "Erro de carregamento",
+          "battery_percentage": "Nível de bateria",
+          "heart": "Heartbeat",
+          "camera_occlusion": "Câmera obstruída",
+          "camera_fault": "Erro na câmera",
+          "event_battery": "Evento de bateria",
+          "forward_looking": "Sensor frontal",
+          "gyroscope": "Erro no giroscópio"
+        }
+      },
+      "fault": {
+        "name": "Código de falha"
+      },
+      "work_mode": {
+        "name": "Modo de trabalho"
+      },
+      "cleaning_area": {
+        "name": "Área limpa"
+      },
+      "cleaning_time": {
+        "name": "Tempo de limpeza"
+      },
+      "total_clean_time": {
+        "name": "Tempo total de limpeza"
+      },
+      "total_clean_count": {
+        "name": "Total de limpezas"
+      },
+      "total_clean_area": {
+        "name": "Área total limpa"
+      },
+      "filter_life": {
+        "name": "Vida do filtro"
+      },
+      "filter_hours": {
+        "name": "Tempo restante do filtro"
+      },
+      "main_brush_life": {
+        "name": "Vida da escova principal"
+      },
+      "main_brush_hours": {
+        "name": "Tempo restante da escova principal"
+      },
+      "side_brush_life": {
+        "name": "Vida da escova lateral"
+      },
+      "side_brush_hours": {
+        "name": "Tempo restante da escova lateral"
+      }
+    }
+  },
+  "services": {
+    "clean_rooms": {
+      "name": "Limpar cômodos",
+      "description": "Limpa um ou mais cômodos, por id ou pelos nomes definidos nas opções da integração.",
+      "fields": {
+        "rooms": {
+          "name": "Cômodos",
+          "description": "Ids dos cômodos ou nomes configurados."
+        },
+        "fan_speed": {
+          "name": "Sucção",
+          "description": "Potência de sucção. Por padrão usa a configuração atual do robô."
+        },
+        "water_level": {
+          "name": "Nível de água do mop",
+          "description": "Nível de água do mop. Por padrão usa a configuração atual do robô."
+        },
+        "repeats": {
+          "name": "Passadas",
+          "description": "Quantas passadas por cômodo (1-3)."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "command_failed": {
+      "message": "O robô recusou ou não respondeu ao comando: {error}"
+    },
+    "unknown_room": {
+      "message": "Cômodo desconhecido '{room}'. Cômodos configurados: {rooms}."
+    }
+  }
+}

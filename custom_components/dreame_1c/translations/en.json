@@ -1,0 +1,234 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Dreame 1C (local)",
+        "description": "Connect to the robot over the local network (miio). Give it a fixed IP via a DHCP reservation.",
+        "data": {
+          "host": "Host",
+          "token": "Token"
+        },
+        "data_description": {
+          "host": "IP address of the robot.",
+          "token": "32-character hex miio token (changes whenever the robot is re-paired in the Xiaomi app)."
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure Dreame 1C",
+        "description": "Update the robot IP or token (e.g. after re-pairing).",
+        "data": {
+          "host": "Host",
+          "token": "Token"
+        },
+        "data_description": {
+          "host": "IP address of the robot.",
+          "token": "32-character hex miio token (changes whenever the robot is re-paired in the Xiaomi app)."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not talk to the robot. Check the IP, the token and that it is on the same network.",
+      "invalid_token": "The token must be 32 hexadecimal characters."
+    },
+    "abort": {
+      "already_configured": "This robot is already configured.",
+      "reconfigure_successful": "Reconfiguration successful.",
+      "wrong_device": "This is a different robot than the one configured. Check the IP and token."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Dreame 1C options",
+        "data": {
+          "rooms": "Rooms",
+          "scan_interval": "Update interval"
+        },
+        "data_description": {
+          "rooms": "Room ids from the Xiaomi app, as `id=Name` separated by commas or new lines, e.g. `1=Suite, 2=Escritorio`. One clean button is created per room.",
+          "scan_interval": "How often the robot is polled, in seconds."
+        }
+      }
+    },
+    "error": {
+      "invalid_rooms": "Invalid format. Use `1=Suite, 2=Escritorio`."
+    }
+  },
+  "selector": {
+    "fan_speed": {
+      "options": {
+        "quiet": "Quiet",
+        "standard": "Standard",
+        "medium": "Medium",
+        "turbo": "Turbo"
+      }
+    },
+    "water_level": {
+      "options": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "water_tank": {
+        "name": "Water tank"
+      }
+    },
+    "button": {
+      "clean_room": {
+        "name": "Clean {room}"
+      },
+      "reset_filter": {
+        "name": "Reset filter"
+      },
+      "reset_main_brush": {
+        "name": "Reset main brush"
+      },
+      "reset_side_brush": {
+        "name": "Reset side brush"
+      }
+    },
+    "number": {
+      "volume": {
+        "name": "Volume"
+      }
+    },
+    "select": {
+      "water_level": {
+        "name": "Mop water level",
+        "state": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
+        }
+      }
+    },
+    "switch": {
+      "dnd": {
+        "name": "Do not disturb"
+      }
+    },
+    "sensor": {
+      "status": {
+        "name": "Status",
+        "state": {
+          "cleaning": "Cleaning",
+          "idle": "Idle",
+          "paused": "Paused",
+          "error": "Error",
+          "returning": "Returning to dock",
+          "charging": "Charging",
+          "mopping": "Mopping"
+        }
+      },
+      "warn_code": {
+        "name": "Warning",
+        "state": {
+          "normal": "Normal",
+          "drop": "Wheel dropped",
+          "cliff": "Cliff sensor",
+          "bumper": "Bumper stuck",
+          "gesture": "Robot tilted",
+          "bumper_repeat": "Bumper stuck (repeated)",
+          "drop_repeat": "Wheel dropped (repeated)",
+          "optical_flow": "Optical flow sensor",
+          "no_box": "Dust bin missing",
+          "no_tankbox": "Water tank missing",
+          "waterbox_empty": "Water tank empty",
+          "box_full": "Dust bin full",
+          "brush": "Main brush tangled",
+          "side_brush": "Side brush tangled",
+          "fan": "Fan error",
+          "left_wheel_motor": "Left wheel motor",
+          "right_wheel_motor": "Right wheel motor",
+          "turn_suffocate": "Stuck while turning",
+          "forward_suffocate": "Stuck moving forward",
+          "charger_get": "Cannot find the dock",
+          "battery_low": "Battery low",
+          "charge_fault": "Charging error",
+          "battery_percentage": "Battery level",
+          "heart": "Heartbeat",
+          "camera_occlusion": "Camera blocked",
+          "camera_fault": "Camera error",
+          "event_battery": "Battery event",
+          "forward_looking": "Front sensor",
+          "gyroscope": "Gyroscope error"
+        }
+      },
+      "fault": {
+        "name": "Fault code"
+      },
+      "work_mode": {
+        "name": "Work mode"
+      },
+      "cleaning_area": {
+        "name": "Cleaning area"
+      },
+      "cleaning_time": {
+        "name": "Cleaning time"
+      },
+      "total_clean_time": {
+        "name": "Total cleaning time"
+      },
+      "total_clean_count": {
+        "name": "Total cleanings"
+      },
+      "total_clean_area": {
+        "name": "Total cleaned area"
+      },
+      "filter_life": {
+        "name": "Filter life"
+      },
+      "filter_hours": {
+        "name": "Filter time left"
+      },
+      "main_brush_life": {
+        "name": "Main brush life"
+      },
+      "main_brush_hours": {
+        "name": "Main brush time left"
+      },
+      "side_brush_life": {
+        "name": "Side brush life"
+      },
+      "side_brush_hours": {
+        "name": "Side brush time left"
+      }
+    }
+  },
+  "services": {
+    "clean_rooms": {
+      "name": "Clean rooms",
+      "description": "Clean one or more rooms, by id or by the names set in the integration options.",
+      "fields": {
+        "rooms": {
+          "name": "Rooms",
+          "description": "Room ids or configured names."
+        },
+        "fan_speed": {
+          "name": "Suction",
+          "description": "Suction power. Defaults to the robot's current setting."
+        },
+        "water_level": {
+          "name": "Mop water level",
+          "description": "Mop water level. Defaults to the robot's current setting."
+        },
+        "repeats": {
+          "name": "Passes",
+          "description": "How many passes per room (1-3)."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "command_failed": {
+      "message": "The robot rejected or did not answer the command: {error}"
+    },
+    "unknown_room": {
+      "message": "Unknown room '{room}'. Configured rooms: {rooms}."
+    }
+  }
+}

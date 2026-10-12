@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The tag is the version: write it into the manifest that ships in the zip.
+      - name: Set manifest version from the tag
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          jq --arg v "$version" '.version = $v' custom_components/dreame_1c/manifest.json > manifest.tmp
+          mv manifest.tmp custom_components/dreame_1c/manifest.json
+
+      - name: Zip the integration
+        run: cd custom_components/dreame_1c && zip -r "$GITHUB_WORKSPACE/dreame_1c.zip" . -x "__pycache__/*"
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dreame_1c.zip \
+            --title "$GITHUB_REF_NAME" --generate-notes --verify-tag
